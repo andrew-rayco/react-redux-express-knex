@@ -11,4 +11,13 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/cats', (req, res) => {
+  let db = req.app.get('db')
+  return db('cats')
+    .select('*')
+    .then(cats => {
+      res.json(cats)
+    })
+})
+
 module.exports = router
