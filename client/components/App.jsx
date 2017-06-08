@@ -1,12 +1,12 @@
 import React from 'react'
 
-import Greetings from './Greetings'
 import CatList from './CatList'
+import AddCat from './AddCat'
 
 const App = () => (
   <div className='app-container'>
-    <Greetings />
     <CatList />
+    <AddCat />
   </div>
 )
 

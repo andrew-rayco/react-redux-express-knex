@@ -1,16 +1,6 @@
 var express = require('express')
 var router = express.Router()
 
-var greetingsDb = require('../db/greeting')
-
-router.get('/', (req, res) => {
-  let db = req.app.get('db')
-  greetingsDb.getGreetings(db)
-    .then(greetings => {
-      res.json(greetings)
-    })
-})
-
 router.get('/cats', (req, res) => {
   let db = req.app.get('db')
   return db('cats')
@@ -18,6 +8,16 @@ router.get('/cats', (req, res) => {
     .then(cats => {
       res.json(cats)
     })
+})
+
+router.post('/cats', (req, res) => {
+  let db = req.app.get('db')
+  return db('cats')
+    .select('*')
+    .then(cats => {
+      res.send(res.body)
+    })
+
 })
 
 module.exports = router

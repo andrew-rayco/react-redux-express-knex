@@ -5,8 +5,8 @@ import {getCats} from '../actions/catActions'
 
 const renderCats = (cat, key) => {
   return (
-    <div>
-      <h2 key={key}>{cat.name}</h2>
+    <div key={key}>
+      <h2>{cat.name}</h2>
       <ul>
         <li>{cat.colour}</li>
         <li>{cat.about}</li>
@@ -17,7 +17,6 @@ const renderCats = (cat, key) => {
 
 const showCats = ({cats, dispatch}) => (
   <div>
-    {console.log(dispatch)}
     <button onClick={() => dispatch(getCats())}>Show cats</button>
     {cats.map(renderCats)}
   </div>
@@ -25,7 +24,6 @@ const showCats = ({cats, dispatch}) => (
 )
 
 const mapStateToProps = (state) => {
-  console.log(state.catReducers)
   return {cats: state.catReducers}
 }
 

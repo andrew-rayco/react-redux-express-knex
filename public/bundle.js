@@ -11036,13 +11036,13 @@ var _react = __webpack_require__(20);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Greetings = __webpack_require__(102);
-
-var _Greetings2 = _interopRequireDefault(_Greetings);
-
 var _CatList = __webpack_require__(235);
 
 var _CatList2 = _interopRequireDefault(_CatList);
+
+var _AddCat = __webpack_require__(237);
+
+var _AddCat2 = _interopRequireDefault(_AddCat);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11050,8 +11050,8 @@ var App = function App() {
   return _react2.default.createElement(
     'div',
     { className: 'app-container' },
-    _react2.default.createElement(_Greetings2.default, null),
-    _react2.default.createElement(_CatList2.default, null)
+    _react2.default.createElement(_CatList2.default, null),
+    _react2.default.createElement(_AddCat2.default, null)
   );
 };
 
@@ -11070,10 +11070,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(33);
 
-var _greetings = __webpack_require__(104);
-
-var _greetings2 = _interopRequireDefault(_greetings);
-
 var _catReducers = __webpack_require__(236);
 
 var _catReducers2 = _interopRequireDefault(_catReducers);
@@ -11081,7 +11077,6 @@ var _catReducers2 = _interopRequireDefault(_catReducers);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _redux.combineReducers)({
-  greetings: _greetings2.default,
   catReducers: _catReducers2.default
 });
 
@@ -11125,96 +11120,8 @@ thunk.withExtraArgument = createThunkMiddleware;
 exports['default'] = thunk;
 
 /***/ }),
-/* 101 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.receiveGreetings = undefined;
-exports.getGreetings = getGreetings;
-
-var _superagent = __webpack_require__(227);
-
-var _superagent2 = _interopRequireDefault(_superagent);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var receiveGreetings = exports.receiveGreetings = function receiveGreetings(greetings) {
-  return {
-    type: 'RECEIVE_GREETINGS',
-    greetings: greetings
-  };
-};
-
-function getGreetings() {
-  return function (dispatch) {
-    _superagent2.default.get('/api/greetings').end(function (err, res) {
-      if (err) {
-        console.error(err.message);
-        return;
-      }
-      dispatch(receiveGreetings(res.body));
-    });
-  };
-}
-
-/***/ }),
-/* 102 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(20);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(55);
-
-var _greetings = __webpack_require__(101);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var renderGreeting = function renderGreeting(greeting, key) {
-  return _react2.default.createElement(
-    'h1',
-    { key: key },
-    greeting.text
-  );
-};
-
-var Greetings = function Greetings(_ref) {
-  var greetings = _ref.greetings,
-      dispatch = _ref.dispatch;
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      'button',
-      { onClick: function onClick() {
-          return dispatch((0, _greetings.getGreetings)());
-        } },
-      'Show Greetings'
-    ),
-    greetings.map(renderGreeting)
-  );
-};
-
-var mapStateToProps = function mapStateToProps(state) {
-  return { greetings: state.greetings };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(Greetings);
-
-/***/ }),
+/* 101 */,
+/* 102 */,
 /* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11258,33 +11165,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /***/ }),
-/* 104 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function greetings() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments[1];
-
-  switch (action.type) {
-    case 'RECEIVE_GREETINGS':
-      return [].concat(_toConsumableArray(action.greetings));
-    default:
-      return state;
-  }
-}
-
-exports.default = greetings;
-
-/***/ }),
+/* 104 */,
 /* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26184,7 +26065,7 @@ var receiveCats = exports.receiveCats = function receiveCats(cats) {
 
 function getCats() {
   return function (dispatch) {
-    _superagent2.default.get('/api/greetings/cats').end(function (err, res) {
+    _superagent2.default.get('/api/cats').end(function (err, res) {
       if (err) {
         console.error(err.message);
         return;
@@ -26218,10 +26099,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var renderCats = function renderCats(cat, key) {
   return _react2.default.createElement(
     'div',
-    null,
+    { key: key },
     _react2.default.createElement(
       'h2',
-      { key: key },
+      null,
       cat.name
     ),
     _react2.default.createElement(
@@ -26247,7 +26128,6 @@ var showCats = function showCats(_ref) {
   return _react2.default.createElement(
     'div',
     null,
-    console.log(dispatch),
     _react2.default.createElement(
       'button',
       { onClick: function onClick() {
@@ -26260,7 +26140,6 @@ var showCats = function showCats(_ref) {
 };
 
 var mapStateToProps = function mapStateToProps(state) {
-  console.log(state.catReducers);
   return { cats: state.catReducers };
 };
 
@@ -26293,6 +26172,77 @@ function cats() {
 }
 
 exports.default = cats;
+
+/***/ }),
+/* 237 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(20);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(55);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AddCat = function AddCat(props) {
+  console.log(props);
+  return _react2.default.createElement(
+    'form',
+    null,
+    _react2.default.createElement(
+      'field',
+      null,
+      _react2.default.createElement(
+        'label',
+        { htmlFor: 'name' },
+        'Name '
+      ),
+      _react2.default.createElement('input', { onChange: handleChange, type: 'text', name: 'name', placeholder: 'name' })
+    ),
+    _react2.default.createElement('br', null),
+    _react2.default.createElement(
+      'field',
+      null,
+      _react2.default.createElement(
+        'label',
+        { htmlFor: 'colour' },
+        'Colour '
+      ),
+      _react2.default.createElement('input', { type: 'text', name: 'colour', placeholder: 'colour' })
+    ),
+    _react2.default.createElement('br', null),
+    _react2.default.createElement(
+      'field',
+      null,
+      _react2.default.createElement(
+        'label',
+        { htmlFor: 'about' },
+        'About '
+      ),
+      _react2.default.createElement('input', { type: 'text', name: 'about', placeholder: 'about' })
+    ),
+    _react2.default.createElement('br', null),
+    _react2.default.createElement('input', { type: 'submit' })
+  );
+};
+
+function handleChange(e) {
+  // not sure how to do this
+}
+
+var mapStateToProps = function mapStateToProps(state) {
+  return { cats: state.catReducers };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(AddCat);
 
 /***/ })
 /******/ ]);

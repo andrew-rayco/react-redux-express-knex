@@ -10,7 +10,7 @@ export const receiveCats = (cats) => {
 export function getCats () {
   return (dispatch) => {
     request
-      .get(`/api/greetings/cats`)
+      .get(`/api/cats`)
       .end((err, res) => {
         if (err) {
           console.error(err.message)
