@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {getCats} from '../actions/catActions'
 
 const renderCats = (cat, key) => {
+  console.log(cat)
   return (
     <div key={key}>
       <h2>{cat.name}</h2>

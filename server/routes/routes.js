@@ -11,11 +11,15 @@ router.get('/cats', (req, res) => {
 })
 
 router.post('/cats', (req, res) => {
+  console.log(req.body)
   let db = req.app.get('db')
   return db('cats')
-    .select('*')
-    .then(cats => {
-      res.send(res.body)
+    .insert(req.body)
+    .then(() => {
+      res.sendStatus(201)
+    })
+    .catch(function (err) {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
     })
 
 })
