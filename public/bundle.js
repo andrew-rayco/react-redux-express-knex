@@ -11227,12 +11227,23 @@ var AddCat = function (_React$Component) {
   _createClass(AddCat, [{
     key: 'handleSubmit',
     value: function handleSubmit(e) {
-      e.preventDefault();
+      e.preventDefault()(this.checkEmptyField(e)) ? this.emptyFieldMessage() : this.allFieldsPopulated(e);
+    }
+  }, {
+    key: 'allFieldsPopulated',
+    value: function allFieldsPopulated(e) {
       this.props.dispatch((0, _catActions.addCat)(this.state.newCat));
       this.setState({ newCat: '' });
       e.target.name.value = '';
       e.target.colour.value = '';
       e.target.about.value = '';
+    }
+  }, {
+    key: 'checkEmptyField',
+    value: function checkEmptyField(e) {
+      if (e.target.name.value == '' || e.target.colour.value == '' || e.target.about.value == '') {
+        return true;
+      }
     }
   }, {
     key: 'handleChange',

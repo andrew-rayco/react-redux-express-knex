@@ -14,12 +14,21 @@ class AddCat extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
+    (this.checkEmptyField(e)) ? this.emptyFieldMessage() : this.allFieldsPopulated(e)
+  }
+
+  allFieldsPopulated(e) {
     this.props.dispatch(addCat(this.state.newCat))
     this.setState({newCat: ''})
     e.target.name.value = ''
     e.target.colour.value = ''
     e.target.about.value = ''
+  }
 
+  checkEmptyField(e) {
+    if (e.target.name.value == '' || e.target.colour.value == '' || e.target.about.value == '') {
+      return true
+    }
   }
 
   handleChange(e) {
