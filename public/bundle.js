@@ -11229,7 +11229,10 @@ var AddCat = function (_React$Component) {
     value: function handleSubmit(e) {
       e.preventDefault();
       this.props.dispatch((0, _catActions.addCat)(this.state.newCat));
-      this.setState({ newCat: null });
+      this.setState({ newCat: '' });
+      e.target.name.value = '';
+      e.target.colour.value = '';
+      e.target.about.value = '';
     }
   }, {
     key: 'handleChange',
@@ -11237,7 +11240,6 @@ var AddCat = function (_React$Component) {
       var newCat = _extends({}, this.state.newCat);
       newCat[e.target.name] = e.target.value;
       this.setState({ newCat: newCat });
-      console.log(newCat);
     }
   }, {
     key: 'render',

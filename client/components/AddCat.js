@@ -15,14 +15,17 @@ class AddCat extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     this.props.dispatch(addCat(this.state.newCat))
-    this.setState({newCat: null})
+    this.setState({newCat: ''})
+    e.target.name.value = ''
+    e.target.colour.value = ''
+    e.target.about.value = ''
+
   }
 
   handleChange(e) {
     let newCat = {...this.state.newCat}
     newCat[e.target.name] = e.target.value
     this.setState({newCat})
-    console.log(newCat)
   }
 
   render () {
