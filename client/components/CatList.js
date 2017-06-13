@@ -19,6 +19,7 @@ const renderCats = (cat, key) => {
 const showCats = ({cats, dispatch}) => (
   <div>
     <button onClick={() => dispatch(getCats())}>Show cats</button>
+    {console.log(cats)}
     {cats.map(renderCats)}
   </div>
 

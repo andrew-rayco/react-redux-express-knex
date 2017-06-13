@@ -8,7 +8,8 @@ class AddCat extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      newCat: {}
+      newCat: {},
+      msg: ''
     }
   }
 
@@ -19,7 +20,7 @@ class AddCat extends React.Component {
 
   allFieldsPopulated(e) {
     this.props.dispatch(addCat(this.state.newCat))
-    this.setState({newCat: ''})
+    this.setState({newCat: '', msg: ''})
     e.target.name.value = ''    // There has to be a btter way to clear the form after submission
     e.target.colour.value = ''
     e.target.about.value = ''
@@ -32,7 +33,9 @@ class AddCat extends React.Component {
   }
 
   emptyFieldMessage() {
-    alert('you must complete all fields')
+    this.setState({
+      msg: 'you must complete all fields'
+    })
   }
 
   handleChange(e) {
@@ -57,6 +60,7 @@ class AddCat extends React.Component {
           <input onChange={(e) => this.handleChange(e)} type="text" name="about" placeholder="about" />
         </field><br />
         <input type="submit" />
+        <p>{this.state.msg}</p>
       </form>
     )
   }

@@ -6,6 +6,12 @@ function cats (state = [], action) {
 
     case 'ADD_CAT':
     console.log('this is the ADD_CAT reducer', action.newCat)
+      // let newState = [...state]
+      // newState = {
+      //   name: action.newCat.name,
+      //   colour: action.newCat.colour,
+      //   about: action.newCat.about
+      // }
       return [...state, action.newCat]
 
     default:

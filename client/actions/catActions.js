@@ -34,6 +34,7 @@ export function addCat (newCat) {
   return (dispatch) => {
     request
       .post(`/api/cats`)
+      .send(newCat)
       .end((err, res) => {
         if (err) {
           console.error(err.message)

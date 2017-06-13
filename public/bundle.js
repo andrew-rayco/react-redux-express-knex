@@ -6902,7 +6902,7 @@ function getCats() {
 function addCat(newCat) {
   console.log(newCat);
   return function (dispatch) {
-    _superagent2.default.post('/api/cats').end(function (err, res) {
+    _superagent2.default.post('/api/cats').send(newCat).end(function (err, res) {
       if (err) {
         console.error(err.message);
         return;
@@ -11219,7 +11219,8 @@ var AddCat = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (AddCat.__proto__ || Object.getPrototypeOf(AddCat)).call(this, props));
 
     _this.state = {
-      newCat: {}
+      newCat: {},
+      msg: ''
     };
     return _this;
   }
@@ -11234,7 +11235,7 @@ var AddCat = function (_React$Component) {
     key: 'allFieldsPopulated',
     value: function allFieldsPopulated(e) {
       this.props.dispatch((0, _catActions.addCat)(this.state.newCat));
-      this.setState({ newCat: '' });
+      this.setState({ newCat: '', msg: '' });
       e.target.name.value = ''; // There has to be a btter way to clear the form after submission
       e.target.colour.value = '';
       e.target.about.value = '';
@@ -11249,7 +11250,9 @@ var AddCat = function (_React$Component) {
   }, {
     key: 'emptyFieldMessage',
     value: function emptyFieldMessage() {
-      alert('you must complete all fields');
+      this.setState({
+        msg: 'you must complete all fields'
+      });
     }
   }, {
     key: 'handleChange',
@@ -11307,7 +11310,12 @@ var AddCat = function (_React$Component) {
             }, type: 'text', name: 'about', placeholder: 'about' })
         ),
         _react2.default.createElement('br', null),
-        _react2.default.createElement('input', { type: 'submit' })
+        _react2.default.createElement('input', { type: 'submit' }),
+        _react2.default.createElement(
+          'p',
+          null,
+          this.state.msg
+        )
       );
     }
   }]);
@@ -11382,6 +11390,7 @@ var showCats = function showCats(_ref) {
         } },
       'Show cats'
     ),
+    console.log(cats),
     cats.map(renderCats)
   );
 };
@@ -11458,8 +11467,14 @@ function cats() {
       return [].concat(_toConsumableArray(action.cats));
 
     case 'ADD_CAT':
-      console.log('this is the ADD_CAT reducer', action.newCat);
-      return [].concat(_toConsumableArray(state), [action.newCat]);
+      console.log('this is the ADD_CAT reducer', action.newCat
+      // let newState = [...state]
+      // newState = {
+      //   name: action.newCat.name,
+      //   colour: action.newCat.colour,
+      //   about: action.newCat.about
+      // }
+      );return [].concat(_toConsumableArray(state), [action.newCat]);
 
     default:
       return state;

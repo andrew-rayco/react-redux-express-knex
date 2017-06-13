@@ -11,7 +11,7 @@ router.get('/cats', (req, res) => {
 })
 
 router.post('/cats', (req, res) => {
-  console.log(req.body)
+  console.log('from server/routes: ', req)
   let db = req.app.get('db')
   return db('cats')
     .insert(req.body)
