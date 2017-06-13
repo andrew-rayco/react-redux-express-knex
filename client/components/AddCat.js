@@ -14,13 +14,13 @@ class AddCat extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    (this.checkEmptyField(e)) ? this.emptyFieldMessage() : this.allFieldsPopulated(e)
+    this.checkEmptyField(e) ? this.emptyFieldMessage() : this.allFieldsPopulated(e)
   }
 
   allFieldsPopulated(e) {
     this.props.dispatch(addCat(this.state.newCat))
     this.setState({newCat: ''})
-    e.target.name.value = ''
+    e.target.name.value = ''    // There has to be a btter way to clear the form after submission
     e.target.colour.value = ''
     e.target.about.value = ''
   }
@@ -29,6 +29,10 @@ class AddCat extends React.Component {
     if (e.target.name.value == '' || e.target.colour.value == '' || e.target.about.value == '') {
       return true
     }
+  }
+
+  emptyFieldMessage() {
+    alert('you must complete all fields')
   }
 
   handleChange(e) {
