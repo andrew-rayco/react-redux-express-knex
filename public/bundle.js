@@ -11220,7 +11220,8 @@ var AddCat = function (_React$Component) {
 
     _this.state = {
       newCat: {},
-      msg: ''
+      msg: '',
+      showForm: false
     };
     return _this;
   }
@@ -11235,8 +11236,8 @@ var AddCat = function (_React$Component) {
     key: 'allFieldsPopulated',
     value: function allFieldsPopulated(e) {
       this.props.dispatch((0, _catActions.addCat)(this.state.newCat));
-      this.setState({ newCat: '', msg: '' });
-      e.target.name.value = ''; // There has to be a btter way to clear the form after submission
+      this.setState({ newCat: {}, msg: '', showForm: false });
+      e.target.name.value = ''; // There has to be a bitter way to clear the form after submission
       e.target.colour.value = '';
       e.target.about.value = '';
     }
@@ -11255,6 +11256,11 @@ var AddCat = function (_React$Component) {
       });
     }
   }, {
+    key: 'changeVisibility',
+    value: function changeVisibility(boolean) {
+      this.setState({ showForm: boolean });
+    }
+  }, {
     key: 'handleChange',
     value: function handleChange(e) {
       var newCat = _extends({}, this.state.newCat);
@@ -11266,7 +11272,7 @@ var AddCat = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      return _react2.default.createElement(
+      return this.state.showForm ? _react2.default.createElement(
         'form',
         { onSubmit: function onSubmit(e) {
             return _this2.handleSubmit(e);
@@ -11312,10 +11318,23 @@ var AddCat = function (_React$Component) {
         _react2.default.createElement('br', null),
         _react2.default.createElement('input', { type: 'submit' }),
         _react2.default.createElement(
+          'button',
+          { onClick: function onClick() {
+              return _this2.changeVisibility(false);
+            } },
+          'Cancel'
+        ),
+        _react2.default.createElement(
           'p',
           null,
           this.state.msg
         )
+      ) : _react2.default.createElement(
+        'button',
+        { onClick: function onClick() {
+            return _this2.changeVisibility(true);
+          } },
+        'Add Cat'
       );
     }
   }]);
@@ -11351,7 +11370,6 @@ var _catActions = __webpack_require__(56);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var renderCats = function renderCats(cat, key) {
-  console.log(cat);
   return _react2.default.createElement(
     'div',
     { key: key },
@@ -11384,13 +11402,17 @@ var showCats = function showCats(_ref) {
     'div',
     null,
     _react2.default.createElement(
+      'h1',
+      null,
+      'This is a thing about cats'
+    ),
+    _react2.default.createElement(
       'button',
       { onClick: function onClick() {
           return dispatch((0, _catActions.getCats)());
         } },
       'Show cats'
     ),
-    console.log(cats),
     cats.map(renderCats)
   );
 };
@@ -11463,18 +11485,10 @@ function cats() {
 
   switch (action.type) {
     case 'DISPLAY_CATS':
-      console.log(action.cats);
       return [].concat(_toConsumableArray(action.cats));
 
     case 'ADD_CAT':
-      console.log('this is the ADD_CAT reducer', action.newCat
-      // let newState = [...state]
-      // newState = {
-      //   name: action.newCat.name,
-      //   colour: action.newCat.colour,
-      //   about: action.newCat.about
-      // }
-      );return [].concat(_toConsumableArray(state), [action.newCat]);
+      return [].concat(_toConsumableArray(state), [action.newCat]);
 
     default:
       return state;

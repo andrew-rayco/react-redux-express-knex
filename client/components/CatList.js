@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {getCats} from '../actions/catActions'
 
 const renderCats = (cat, key) => {
-  console.log(cat)
   return (
     <div key={key}>
       <h2>{cat.name}</h2>
@@ -18,8 +17,8 @@ const renderCats = (cat, key) => {
 
 const showCats = ({cats, dispatch}) => (
   <div>
+    <h1>This is a thing about cats</h1>
     <button onClick={() => dispatch(getCats())}>Show cats</button>
-    {console.log(cats)}
     {cats.map(renderCats)}
   </div>
 

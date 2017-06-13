@@ -9,19 +9,21 @@ class AddCat extends React.Component {
     super(props)
     this.state = {
       newCat: {},
-      msg: ''
+      msg: '',
+      showForm: false
     }
   }
 
   handleSubmit(e) {
     e.preventDefault()
     this.checkEmptyField(e) ? this.emptyFieldMessage() : this.allFieldsPopulated(e)
+
   }
 
   allFieldsPopulated(e) {
     this.props.dispatch(addCat(this.state.newCat))
-    this.setState({newCat: '', msg: ''})
-    e.target.name.value = ''    // There has to be a btter way to clear the form after submission
+    this.setState({newCat: {}, msg: '', showForm: false})
+    e.target.name.value = ''    // There has to be a bitter way to clear the form after submission
     e.target.colour.value = ''
     e.target.about.value = ''
   }
@@ -37,7 +39,9 @@ class AddCat extends React.Component {
       msg: 'you must complete all fields'
     })
   }
-
+  changeVisibility(boolean) {
+    this.setState({showForm: boolean})
+  }
   handleChange(e) {
     let newCat = {...this.state.newCat}
     newCat[e.target.name] = e.target.value
@@ -46,22 +50,29 @@ class AddCat extends React.Component {
 
   render () {
     return (
-      <form onSubmit={(e) => this.handleSubmit(e)}>
-        <field>
-          <label htmlFor="name">Name </label>
-          <input onChange={(e) => this.handleChange(e)} type="text" name="name" placeholder="name" />
-        </field><br />
-        <field>
-          <label htmlFor="colour">Colour </label>
-          <input onChange={(e) => this.handleChange(e)} type="text" name="colour" placeholder="colour" />
-        </field><br />
-        <field>
-          <label htmlFor="about">About </label>
-          <input onChange={(e) => this.handleChange(e)} type="text" name="about" placeholder="about" />
-        </field><br />
-        <input type="submit" />
-        <p>{this.state.msg}</p>
-      </form>
+      this.state.showForm
+        ? (
+          <form onSubmit={(e) => this.handleSubmit(e)}>
+          <field>
+            <label htmlFor="name">Name </label>
+            <input onChange={(e) => this.handleChange(e)} type="text" name="name" placeholder="name" />
+          </field><br />
+          <field>
+            <label htmlFor="colour">Colour </label>
+            <input onChange={(e) => this.handleChange(e)} type="text" name="colour" placeholder="colour" />
+          </field><br />
+          <field>
+            <label htmlFor="about">About </label>
+            <input onChange={(e) => this.handleChange(e)} type="text" name="about" placeholder="about" />
+          </field><br />
+          <input type="submit" />
+          <button onClick={() => this.changeVisibility(false)}>Cancel</button>
+          <p>{this.state.msg}</p>
+        </form>
+      )
+        : <button onClick={() => this.changeVisibility(true)}>Add Cat</button>
+
+
     )
   }
 
