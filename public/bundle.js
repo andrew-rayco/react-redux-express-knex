@@ -11237,7 +11237,7 @@ var AddCat = function (_React$Component) {
     value: function allFieldsPopulated(e) {
       this.props.dispatch((0, _catActions.addCat)(this.state.newCat));
       this.setState({ newCat: {}, msg: '', showForm: false });
-      e.target.name.value = ''; // There has to be a bitter way to clear the form after submission
+      e.target.name.value = ''; // There has to be a better way to clear the form after submission
       e.target.colour.value = '';
       e.target.about.value = '';
     }
